@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import './signin.html';
 import '../../teclass/assets/css/styles.css';
 
@@ -22,8 +23,28 @@ Template.App_signin.helpers({
 Template.App_signin.events({
   'click #btn-auth'(event) {
     event.preventDefault();
-    let elemento = document.getElementById('email').value;
-    console.log(elemento.toLowerCase());
-    document.getElementById('email').value = elemento.toLowerCase();
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+
+    if (email && password) {
+      Meteor.call('signin', email, password, (error, response) => {
+
+        if (!error) {
+          const session = response.data;
+
+          Session.setPersistent('token', session.token);
+          Session.setPersistent('id', session.user._id);
+          Session.setPersistent('nome', session.user.name);
+          Session.setPersistent('email', session.user.email);
+
+          FlowRouter.go('/home');
+        }
+
+      });
+    }
+
+
+
+
   },
 });

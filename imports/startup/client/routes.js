@@ -11,14 +11,27 @@ import '../../ui/pages/not-found/not-found.js';
 FlowRouter.route('/', {
   name: 'App.signin',
   action() {
-    BlazeLayout.render('App_body', { main: 'App_signin' });
+    const session = Session.get('token');
+
+    if (!session) {
+      BlazeLayout.render('App_body', { main: 'App_signin' });
+    } else {
+      FlowRouter.go('/home');
+    }
   },
 });
 
 FlowRouter.route('/home', {
   name: 'App.home',
   action() {
-    BlazeLayout.render('App_body', { main: 'App_home' });
+    const session = Session.get('token');
+
+    if (session) {
+      BlazeLayout.render('App_body', { main: 'App_home' });
+    } else {
+      FlowRouter.go('/');
+    }
+
   },
 });
 
