@@ -31,7 +31,7 @@ Template.App_signin.events({
 
         if (!error) {
           const session = response.data;
-
+          console.log(session);
           Session.setPersistent('token', session.token);
           Session.setPersistent('id', session.user._id);
           Session.setPersistent('nome', session.user.name);

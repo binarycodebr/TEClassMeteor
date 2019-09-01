@@ -1,4 +1,22 @@
 <template name="App_home">
-  {{> hello}}
-  {{> info}}
+  {{> navbar}}
+  <div class="container-fluid" id="container-full-home">
+    <div class="row" id="row-home">
+      <div class="col" id="col-home">
+        {{#each listGitHub}}
+        <div class="card card-home">
+          <div class="card-body">
+            <div class="col col-card">
+              <h4>{{name}}</h4><img src="{{owner.avatar_url}}" width="50px">
+            </div>
+            <h6 class="text-muted card-subtitle mb-2">{{owner.login}}</h6>
+            <p class="card-text">{{#if description}} {{description}} {{else}} Descrição inexistente no repositório.
+              {{/if}}</p><a class="card-link link-home" target="_blank" href="{{html_url}}">Acessar
+              repositório</a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
 </template>
