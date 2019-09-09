@@ -19,6 +19,7 @@ Template.App_home.onCreated(function () {
   });
 });
 
+
 Template.App_home.helpers({
   listGitHub() {
     let lista = Session.get('githubList');
